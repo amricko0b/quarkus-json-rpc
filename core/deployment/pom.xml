@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.github.amricko0b</groupId>
+    <groupId>xyz.amricko0b</groupId>
     <artifactId>quarkus-json-rpc-core-parent</artifactId>
     <version>0.0.1</version>
   </parent>
 
-  <name>Core deployment build items and processors</name>
+  <description>Core deployment build items and processors</description>
   <artifactId>quarkus-json-rpc-core-deployment</artifactId>
 
   <properties>
@@ -18,7 +18,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>io.github.amricko0b</groupId>
+      <groupId>xyz.amricko0b</groupId>
       <artifactId>quarkus-json-rpc-core</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -37,10 +37,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.central</groupId>
-        <artifactId>central-publishing-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>

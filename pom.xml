@@ -3,12 +3,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.github.amricko0b</groupId>
+  <groupId>xyz.amricko0b</groupId>
   <artifactId>quarkus-json-rpc-parent</artifactId>
   <version>0.0.1</version>
   <packaging>pom</packaging>
 
-  <name>A JSON-RPC Extension for Quarkus Framework</name>
+  <description>A JSON-RPC Extension for Quarkus Framework</description>
   <url>https://github.com/amricko0b/quarkus-json-rpc</url>
 
   <developers>
@@ -106,12 +106,26 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${javadoc-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>attach-javadoc</id>
+              <phase>compile</phase>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
           <version>${source-plugin.version}</version>
           <executions>
             <execution>
               <id>attach-sources</id>
-              <phase>verify</phase>
+              <phase>compile</phase>
               <goals>
                 <goal>jar-no-fork</goal>
               </goals>
@@ -161,11 +175,6 @@
           </executions>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>${javadoc-plugin.version}</version>
-        </plugin>
-        <plugin>
           <groupId>org.sonatype.central</groupId>
           <artifactId>central-publishing-maven-plugin</artifactId>
           <version>${central-plugin.version}</version>
@@ -178,8 +187,9 @@
           </executions>
           <configuration>
             <publishingServerId>maven-central</publishingServerId>
-            <autoPublish>true</autoPublish>
-            <waitUntil>published</waitUntil>
+            <excludeArtifacts>
+              <excludeArtifact>quarkus-json-rpc-jackson-examples</excludeArtifact>
+            </excludeArtifacts>
           </configuration>
         </plugin>
       </plugins>

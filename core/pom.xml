@@ -4,13 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.github.amricko0b</groupId>
+    <groupId>xyz.amricko0b</groupId>
     <artifactId>quarkus-json-rpc-parent</artifactId>
     <version>0.0.1</version>
   </parent>
 
   <artifactId>quarkus-json-rpc-core-parent</artifactId>
-  <name>Core library for the Extension</name>
+  <description>Core library for the Extension</description>
   <packaging>pom</packaging>
 
   <modules>

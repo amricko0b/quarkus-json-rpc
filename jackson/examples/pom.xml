@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.github.amricko0b</groupId>
+    <groupId>xyz.amricko0b</groupId>
     <artifactId>quarkus-json-rpc-jackson-parent</artifactId>
     <version>0.0.1</version>
   </parent>
 
-  <name>Quarkus JSON-RPC Jackson examples</name>
+  <description>Quarkus JSON-RPC Jackson examples</description>
   <artifactId>quarkus-json-rpc-jackson-examples</artifactId>
 
   <dependencies>
@@ -19,7 +19,7 @@
     </dependency>
 
     <dependency>
-      <groupId>io.github.amricko0b</groupId>
+      <groupId>xyz.amricko0b</groupId>
       <artifactId>quarkus-json-rpc-jackson</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -42,10 +42,10 @@
       </plugin>
 
       <plugin>
-        <groupId>org.sonatype.central</groupId>
-        <artifactId>central-publishing-maven-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
         <configuration>
-          <skipPublishing>true</skipPublishing>
+          <skip>true</skip>
         </configuration>
       </plugin>
     </plugins>

@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.github.amricko0b</groupId>
+    <groupId>xyz.amricko0b</groupId>
     <artifactId>quarkus-json-rpc-core-parent</artifactId>
     <version>0.0.1</version>
   </parent>
 
-  <name>Core classes and protocol annotations</name>
+  <description>Core classes and protocol annotations</description>
   <artifactId>quarkus-json-rpc-core</artifactId>
 
   <dependencies>
@@ -24,10 +24,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.central</groupId>
-        <artifactId>central-publishing-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
