@@ -1,9 +1,11 @@
 package xyz.amricko0b.quarkus.jsonrpc;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import xyz.amricko0b.quarkus.jsonrpc.annotation.JsonRpcExceptionMapper;
 import xyz.amricko0b.quarkus.jsonrpc.annotation.JsonRpcMethod;
 import xyz.amricko0b.quarkus.jsonrpc.annotation.JsonRpcParam;
 import xyz.amricko0b.quarkus.jsonrpc.annotation.JsonRpcParams;
+import xyz.amricko0b.quarkus.jsonrpc.message.JsonRpcError;
 
 /** An example of JSON-RPC responsible bean used in tests. */
 @ApplicationScoped
@@ -33,5 +35,10 @@ public class MathJsonRpcHandlers {
       throw new ArithmeticException("Division by zero");
     }
     return (float) a / b;
+  }
+
+  @JsonRpcExceptionMapper
+  public JsonRpcError arithmeticException(ArithmeticException ex) {
+    return new JsonRpcError(4040, ex.getMessage());
   }
 }

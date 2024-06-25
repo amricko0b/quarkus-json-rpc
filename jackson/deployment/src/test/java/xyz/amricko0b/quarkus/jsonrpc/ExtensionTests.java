@@ -8,9 +8,7 @@ import io.quarkus.test.QuarkusUnitTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
-import xyz.amricko0b.quarkus.jsonrpc.JsonRpcMediator;
 import xyz.amricko0b.quarkus.jsonrpc.annotation.JsonRpcParam;
-import xyz.amricko0b.quarkus.jsonrpc.message.JsonRpcError;
 
 public class ExtensionTests {
 
@@ -91,8 +89,7 @@ public class ExtensionTests {
     var resp = jsonRpc.serve(req);
     var respTree = objectMapper.readTree(resp);
     assertEquals("904f5c43-4c53-4092-b809-3819e2d95f16", respTree.get("id").asText());
-    assertEquals(JsonRpcError.INTERNAL_ERROR.getCode(), respTree.get("error").get("code").asInt());
-    assertEquals(
-        JsonRpcError.INTERNAL_ERROR.getMessage(), respTree.get("error").get("message").asText());
+    assertEquals(4040, respTree.get("error").get("code").asInt());
+    assertEquals("Division by zero", respTree.get("error").get("message").asText());
   }
 }

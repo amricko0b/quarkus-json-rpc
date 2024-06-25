@@ -28,7 +28,7 @@ public class PetsJsonRpc {
       @JsonRpcParam(name = "vaccination_date") LocalDate date) {
     var pet = PETS.get(id);
     if (pet == null) {
-      throw new NoSuchPetException("No such pet: " + id);
+      throw new NoSuchPetException(id);
     }
 
     if (date == null) {
@@ -44,7 +44,7 @@ public class PetsJsonRpc {
   @JsonRpcMethod(name = "pets.update")
   public void updatePet(@JsonRpcParams Pet pet) {
     if (!PETS.containsKey(pet.getId())) {
-      throw new NoSuchPetException("No such pet: " + pet.getId());
+      throw new NoSuchPetException(pet.getId());
     }
 
     PETS.replace(pet.getId(), pet);

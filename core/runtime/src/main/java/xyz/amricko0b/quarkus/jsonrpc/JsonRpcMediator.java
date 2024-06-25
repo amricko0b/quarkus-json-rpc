@@ -7,6 +7,7 @@ import xyz.amricko0b.quarkus.jsonrpc.exception.JsonRpcRequestParseException;
 import xyz.amricko0b.quarkus.jsonrpc.exception.JsonRpcResponseCreationException;
 import xyz.amricko0b.quarkus.jsonrpc.message.JsonRpcError;
 import xyz.amricko0b.quarkus.jsonrpc.message.JsonRpcResponse;
+import xyz.amricko0b.quarkus.jsonrpc.runtime.JsonRpcExceptionMapperInvoker;
 import xyz.amricko0b.quarkus.jsonrpc.runtime.JsonRpcMethodInvoker;
 import io.quarkus.arc.All;
 import jakarta.inject.Inject;
@@ -27,7 +28,9 @@ import xyz.amricko0b.quarkus.jsonrpc.serde.JsonRpcSerde;
 public class JsonRpcMediator {
 
   /** Invokers to delegate method handling */
-  @Inject @All List<JsonRpcMethodInvoker> invokers;
+  @Inject @All List<JsonRpcMethodInvoker> methodInvokers;
+
+  @Inject @All List<JsonRpcExceptionMapperInvoker> exceptionMapperInvokers;
 
   /** Serialization protocol */
   @Inject JsonRpcSerde serde;
@@ -58,7 +61,7 @@ public class JsonRpcMediator {
       var invokerParams = serde.prepareParamsForInvoker(request, methodMeta.get().getParams());
 
       var invoker =
-          invokers.stream()
+          methodInvokers.stream()
               .filter(inv -> inv.getMethodName().equals(request.getMethod()))
               .findFirst();
       if (invoker.isEmpty()) {
@@ -79,8 +82,20 @@ public class JsonRpcMediator {
 
       } catch (Exception ex) {
         log.error("Error during JSON-RPC request handling", ex);
+
+        // Try to apply suitable exception mapper if any
+        var mapperInvoker =
+            exceptionMapperInvokers.stream()
+                .filter(inv -> inv.getSupportedClass().equals(ex.getClass()))
+                .findFirst();
+
+        if (mapperInvoker.isEmpty()) {
+          return serde.serializeResposeToString(
+              new JsonRpcResponse(requestId, null, JsonRpcError.INTERNAL_ERROR));
+        }
+
         return serde.serializeResposeToString(
-            new JsonRpcResponse(requestId, null, JsonRpcError.INTERNAL_ERROR));
+            new JsonRpcResponse(requestId, null, mapperInvoker.get().invoke(ex)));
       }
 
     } catch (JsonRpcRequestParseException ex) {

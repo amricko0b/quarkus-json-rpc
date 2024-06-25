@@ -5,7 +5,7 @@
 
   <groupId>xyz.amricko0b</groupId>
   <artifactId>quarkus-json-rpc-parent</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <packaging>pom</packaging>
 
   <description>A JSON-RPC Extension for Quarkus Framework</description>
